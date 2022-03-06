@@ -1,0 +1,33 @@
+@TOKEN_1=IQgkEVsGNEyCV18Bgb4JwDFu37Ur3qVJIieKo8uz
+@TOKEN_2=3EAOu9ujOSTJrHMxcSX20DW4guNFdTRNMtG05URw
+
+
+### Login
+curl -X POST http://localhost:8000/api/user/login \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{"email": "admin@mail.com", "password": "power@123"}'
+
+### Get logged user 1
+curl -X GET http://localhost:8000/api/me \
+-H 'Authorization: Bearer {{ TOKEN_1 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'
+
+### Get logged user 2
+curl -X GET http://localhost:8000/api/me \
+-H 'Authorization: Bearer {{ TOKEN_2 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'
+
+
+### Create USER
+curl -X POST http://localhost:8000/api/user \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{
+    "name": "admin2",
+    "email": "admin2@mail.com",
+    "password": "power@123",
+    "password_confirmation": "power@123"
+}'

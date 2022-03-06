@@ -31,3 +31,59 @@ curl -X POST http://localhost:8000/api/user \
     "password": "power@123",
     "password_confirmation": "power@123"
 }'
+
+###### MESSAGES #########
+
+### SEND message to user 1
+curl -X POST http://localhost:8000/api/messages \
+-H 'Authorization: Bearer {{ TOKEN_2 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{
+    "to": 1,
+    "message": "Hello world"
+}'
+
+### SEND message to user 2
+curl -X POST http://localhost:8000/api/messages \
+-H 'Authorization: Bearer {{ TOKEN_1 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{
+    "to": 2,
+    "message": "Hello world"
+}'
+
+### MUST FAILL send to yourself
+curl -X POST http://localhost:8000/api/messages \
+-H 'Authorization: Bearer {{ TOKEN_1 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{
+    "to": 1,
+    "message": "Hello world"
+}'
+
+### Get ALL messages to user 1
+curl -X GET http://localhost:8000/api/messages \
+-H 'Authorization: Bearer {{ TOKEN_1 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'
+
+### Get ALL messages to user 2
+curl -X GET http://localhost:8000/api/messages \
+-H 'Authorization: Bearer {{ TOKEN_2 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'
+
+### Get messages from user 1
+curl -X GET http://localhost:8000/api/messages/from/1 \
+-H 'Authorization: Bearer {{ TOKEN_2 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'
+
+### Get messages from user 2
+curl -X GET http://localhost:8000/api/messages/from/2 \
+-H 'Authorization: Bearer {{ TOKEN_1 }}' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json'

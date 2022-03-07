@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-12 mb-3">
-        <h2 class="text-center">Logged as @auth() {{ \Auth::user()->name }} @endauth</h2>
+        <h2 class="text-center">Logged as @auth() {{ \Auth::user()->name }} #{{ \Auth::user()->id }} @endauth</h2>
     </div>
 
     <div class="col-12 mb-3" temp-log>
@@ -168,7 +168,7 @@
         container.appendChild(listItem);
     }
 
-    function loadMessages () {
+    function loadMessages (reset = false) {
         getMessagesFrom().then(
             response => {
                 var messages = response.data.data ? response.data.data : [];
@@ -178,7 +178,9 @@
                     return null;
                 }
 
-                //resetMessageContainer();
+                if(reset) {
+                    resetMessageContainer();
+                }
 
                 messages.forEach(
                     message => {
@@ -200,7 +202,7 @@
     }
 
     function putTempMessage(content) {
-        let contentToPut = JSON.stringify(jsonParseOrSelf(content), null, 4);
+        let contentToPut = JSON.stringify(content, null, 4);
 
         let tempMessageContainer = document.querySelector('[temp-log]');
 
@@ -211,5 +213,34 @@
 
         tempMessageContainer.innerHTML = contentToPut;
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadMessages(true);
+
+        getMe().then((userData) => {
+            let loggedUser = userData;
+
+            if (!(!!loggedUser && !!window.Echo))
+            {
+                console.table({
+                    loggedUser: !!loggedUser,
+                    window_echo: !!window.Echo
+                });
+                return null;
+            }
+
+            if(loggedUser && window.Echo) {
+                window.Echo.private('user.' + loggedUser.id)
+                    .listen('.MessageSended', (e) => {
+
+                        if(e.message_data) {
+                            putTempMessage(e);
+                            console.table(e);
+                            putMessage(e.message_data);
+                        }
+                    });
+            }
+        });
+    });
 </script>
 @endsection

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\Message\MessageSendedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Route;
 use Auth;
+use Illuminate\Support\Facades\Event;
 
 class MessageController extends Controller
 {
@@ -102,6 +104,8 @@ class MessageController extends Controller
                 'message' => 'Fail to send message',
             ], 422);
         }
+
+        Event::dispatch(new MessageSendedEvent($message));
 
         return response()->json([
             'message' => 'Message sended successfully',

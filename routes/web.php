@@ -18,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [StaticLoginController::class, 'index'])->name('site_root');
 StaticLoginController::routes();
 StaticMessageController::routes();
+
+Route::match(
+    ['get', 'post'],
+    '/broadcasting-auth-api',
+    [\Illuminate\Broadcasting\BroadcastController::class, 'authenticate']
+)->middleware(['web', 'auth:sanctum'])
+->withoutMiddleware([
+    \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+    \Fruitcake\Cors\HandleCors::class,
+]);

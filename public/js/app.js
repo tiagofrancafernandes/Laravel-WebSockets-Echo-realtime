@@ -2097,7 +2097,28 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsHost: window.location.hostname,
   wsPort: 6001,
   forceTLS: false,
-  disableStats: true
+  disableStats: true,
+  auth: {
+    headers: {
+      'Authorization': 'Bearer IQgkEVsGNEyCV18Bgb4JwDFu37Ur3qVJIieKo8uz'
+    }
+  },
+  authEndpoint: "http://".concat(window.location.hostname, ":8000/broadcasting/auth")
+});
+window.EchoAPI = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  broadcaster: 'pusher',
+  key: "my_pusher_key_12",
+  cluster: "mt1",
+  wsHost: window.location.hostname,
+  wsPort: 6001,
+  forceTLS: false,
+  disableStats: true,
+  auth: {
+    headers: {
+      'Authorization': 'Bearer IQgkEVsGNEyCV18Bgb4JwDFu37Ur3qVJIieKo8uz'
+    }
+  },
+  authEndpoint: "http://".concat(window.location.hostname, ":8000/broadcasting-auth-api")
 });
 
 /***/ }),

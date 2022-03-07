@@ -28,4 +28,26 @@ window.Echo = new Echo({
     wsPort: 6001,
     forceTLS: false,
     disableStats: true,
+    auth: {
+        headers: {
+            'Authorization': 'Bearer IQgkEVsGNEyCV18Bgb4JwDFu37Ur3qVJIieKo8uz',
+        },
+    },
+    authEndpoint: `http://${window.location.hostname}:8000/broadcasting/auth`,
+});
+
+window.EchoAPI = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    disableStats: true,
+    auth: {
+        headers: {
+            'Authorization': 'Bearer IQgkEVsGNEyCV18Bgb4JwDFu37Ur3qVJIieKo8uz',
+        },
+    },
+    authEndpoint: `http://${window.location.hostname}:8000/broadcasting-auth-api`,
 });

@@ -16,4 +16,16 @@
         </ul>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    window.EchoAPI.private('user.1')
+        .listen('.MessageSended', (e) => {
+            if (e.message_data)
+            {
+                console.table(e);
+            }
+        });
+    });
+</script>
 @endsection

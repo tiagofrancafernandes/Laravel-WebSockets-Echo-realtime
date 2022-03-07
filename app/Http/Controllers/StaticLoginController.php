@@ -48,7 +48,7 @@ class StaticLoginController extends Controller
 
         Auth::login($user);
 
-        session()->put('token', $token);
+        session()->put('token', $plainTextToken);
 
         return redirect()->route('messages_index')->with('error', 'Loged in');
     }

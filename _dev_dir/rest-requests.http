@@ -41,7 +41,7 @@ curl -X POST http://localhost:8000/api/messages \
 -H 'Accept: application/json' \
 -d '{
     "to": 1,
-    "message": "Hello world VSCODE aqui no REST Client"
+    "message": "Ola Andy"
 }'
 
 ### SEND message to user 2

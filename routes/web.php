@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StaticLoginController;
+use App\Http\Controllers\StaticMessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [StaticLoginController::class, 'index'])->name('site_root');
+StaticLoginController::routes();
+StaticMessageController::routes();

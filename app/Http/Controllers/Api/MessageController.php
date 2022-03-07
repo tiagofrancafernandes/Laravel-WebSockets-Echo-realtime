@@ -56,7 +56,11 @@ class MessageController extends Controller
      */
     public function listFrom(Request $request, int $userId)
     {
-        $query = Message::where('to', Auth::user()->id);
+        $query = Message::query();
+        $query = $query->where(function ($query) use ($userId) {
+            $query->where('to', '=', Auth::user()->id)
+                ->Where('from', '=', $userId);
+        });
 
         return response()->json([
             'data' => $query->where('from', $userId)->paginate(10),
